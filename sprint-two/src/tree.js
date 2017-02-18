@@ -3,17 +3,37 @@ var Tree = function(value) {
   newTree.value = value;
 
   // your code here
-  newTree.children = null;  // fix me
-
+  newTree.children = [];  // fix me
+  console.log(newTree, newTree.children);
+  extend(newTree, treeMethods);
   return newTree;
 };
 
 var treeMethods = {};
 
+var extend = function(to, from) {
+  for (let key in from) {
+    to[key] = from[key];
+  }
+};
+
 treeMethods.addChild = function(value) {
+  let child = Tree(value);
+  this.children.push(child);
 };
 
 treeMethods.contains = function(target) {
+  if (this.value === target) {
+    return true;
+  }
+
+  for (let i = 0; i < this.children.length; i++) {
+    let child = this.children[i];
+    if (child.contains(target)) {
+      return true;
+    }
+  }
+  return false;
 };
 
 
